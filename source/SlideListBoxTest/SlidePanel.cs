@@ -110,7 +110,7 @@
         /// <param name="e">イベント引数</param>
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            StartAnimation();
+            StartAnimation(TimeSpan.FromMilliseconds(0));
         }
 
         #endregion イベントハンドラ
@@ -194,12 +194,13 @@
         /// <summary>
         /// アニメーションを開始します。
         /// </summary>
-        private void StartAnimation()
+        /// <param name="duration">アニメーションの長さを指定します。</param>
+        private void StartAnimation(Duration? duration = null)
         {
             var slideAnimation = new DoubleAnimation()
             {
                 To = -this._lastVisualParentSize.Width * this.TargetIndex,
-                Duration = TimeSpan.FromMilliseconds((double)AnimationTime),
+                Duration = duration != null ? duration.Value : TimeSpan.FromMilliseconds((double)AnimationTime),
                 AccelerationRatio = 0.7,
                 DecelerationRatio = 0.3,
             };
